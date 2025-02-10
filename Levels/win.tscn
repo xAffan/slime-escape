@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlitith62r1xw"]
+
+[ext_resource type="Texture2D" uid="uid://cnoolqgnk2kcf" path="res://you_win.webp" id="1_1q6qi"]
+
+[node name="TextureRect" type="TextureRect"]
+offset_right = 1161.0
+offset_bottom = 860.0
+texture = ExtResource("1_1q6qi")
+expand_mode = 1

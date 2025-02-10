@@ -1,0 +1,112 @@
+[gd_scene load_steps=14 format=3 uid="uid://mt3d6slplxbc"]
+
+[ext_resource type="Script" path="res://Player/enemy.gd" id="1_42mi5"]
+[ext_resource type="Texture2D" uid="uid://twrbkjnossy4" path="res://Enemies/Anim/Creeps 1D[anim].png" id="2_u8f73"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6hh3t"]
+radius = 9.0
+height = 76.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rruav"]
+radius = 245.177
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n5yyw"]
+size = Vector2(54, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1lat"]
+atlas = ExtResource("2_u8f73")
+region = Rect2(0, 960, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w248h"]
+atlas = ExtResource("2_u8f73")
+region = Rect2(160, 960, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4nil6"]
+atlas = ExtResource("2_u8f73")
+region = Rect2(320, 960, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7lhyu"]
+atlas = ExtResource("2_u8f73")
+region = Rect2(480, 960, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0gb8"]
+atlas = ExtResource("2_u8f73")
+region = Rect2(320, 640, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0307"]
+atlas = ExtResource("2_u8f73")
+region = Rect2(0, 640, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dr3v0"]
+atlas = ExtResource("2_u8f73")
+region = Rect2(480, 640, 160, 160)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ucihq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1lat")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w248h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4nil6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7lhyu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e0gb8")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0307")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dr3v0")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 5.0
+}]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_42mi5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 2)
+shape = SubResource("CapsuleShape2D_6hh3t")
+
+[node name="Player Detection" type="Area2D" parent="."]
+position = Vector2(14, 82)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player Detection"]
+position = Vector2(-12, -80)
+shape = SubResource("CircleShape2D_rruav")
+
+[node name="Player Damage" type="Area2D" parent="."]
+position = Vector2(14, 82)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player Damage"]
+position = Vector2(-14, -82)
+shape = SubResource("RectangleShape2D_n5yyw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(9, -24)
+scale = Vector2(0.965625, 0.996875)
+sprite_frames = SubResource("SpriteFrames_ucihq")
+animation = &"Attack"
+
+[connection signal="body_entered" from="Player Detection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_entered" from="Player Damage" to="." method="_on_player_damage_body_entered"]
+[connection signal="body_exited" from="Player Damage" to="." method="_on_player_damage_body_exited"]
