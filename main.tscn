@@ -1,0 +1,54 @@
+[gd_scene load_steps=11 format=3 uid="uid://cq2h7d75jurr8"]
+
+[ext_resource type="Script" path="res://play.gd" id="1_4wkgg"]
+[ext_resource type="Texture2D" uid="uid://cvrufa3rkesfn" path="res://main.webp" id="1_xn6mk"]
+[ext_resource type="Texture2D" uid="uid://baeqwfpt6bhdy" path="res://play.png" id="2_2bf7x"]
+[ext_resource type="Texture2D" uid="uid://bk80plnssddja" path="res://quit.png" id="4_ibva4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3xk2o"]
+texture = ExtResource("2_2bf7x")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e0ihv"]
+texture = ExtResource("2_2bf7x")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pun1j"]
+texture = ExtResource("2_2bf7x")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_35s1k"]
+texture = ExtResource("4_ibva4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qeqd0"]
+texture = ExtResource("4_ibva4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c8amc"]
+texture = ExtResource("4_ibva4")
+
+[node name="Main" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("1_xn6mk")
+expand_mode = 1
+
+[node name="Play" type="Button" parent="."]
+offset_left = 489.0
+offset_top = 377.0
+offset_right = 704.0
+offset_bottom = 583.0
+theme_override_styles/focus = SubResource("StyleBoxTexture_3xk2o")
+theme_override_styles/hover = SubResource("StyleBoxTexture_e0ihv")
+theme_override_styles/normal = SubResource("StyleBoxTexture_pun1j")
+script = ExtResource("1_4wkgg")
+
+[node name="Quit" type="Button" parent="."]
+offset_left = 1025.0
+offset_top = 519.0
+offset_right = 1161.0
+offset_bottom = 649.0
+theme_override_styles/focus = SubResource("StyleBoxTexture_35s1k")
+theme_override_styles/hover = SubResource("StyleBoxTexture_qeqd0")
+theme_override_styles/normal = SubResource("StyleBoxTexture_c8amc")
+
+[connection signal="pressed" from="Play" to="Play" method="_on_pressed"]
+[connection signal="pressed" from="Quit" to="Play" method="_on_quit_pressed"]

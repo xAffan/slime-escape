@@ -1,0 +1,105 @@
+[gd_scene load_steps=13 format=3 uid="uid://dwmhg4xs1udc5"]
+
+[ext_resource type="Script" path="res://Player/enemy.gd" id="1_8ns3q"]
+[ext_resource type="Texture2D" uid="uid://6ijh5dkjb2a" path="res://Enemies/Anim/Demonpot E[anim].png" id="2_7ixep"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6hh3t"]
+radius = 9.0
+height = 76.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rruav"]
+radius = 245.177
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n5yyw"]
+size = Vector2(54, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1j25o"]
+atlas = ExtResource("2_7ixep")
+region = Rect2(160, 1600, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7axob"]
+atlas = ExtResource("2_7ixep")
+region = Rect2(0, 960, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1shm1"]
+atlas = ExtResource("2_7ixep")
+region = Rect2(160, 960, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f35m3"]
+atlas = ExtResource("2_7ixep")
+region = Rect2(320, 960, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2e5s"]
+atlas = ExtResource("2_7ixep")
+region = Rect2(0, 1120, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ru0ta"]
+atlas = ExtResource("2_7ixep")
+region = Rect2(480, 1760, 160, 160)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ucihq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1j25o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7axob")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1shm1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f35m3")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p2e5s")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ru0ta")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 5.0
+}]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_8ns3q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 2)
+shape = SubResource("CapsuleShape2D_6hh3t")
+
+[node name="Player Detection" type="Area2D" parent="."]
+position = Vector2(14, 82)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player Detection"]
+position = Vector2(-12, -80)
+shape = SubResource("CircleShape2D_rruav")
+
+[node name="Player Damage" type="Area2D" parent="."]
+position = Vector2(14, 82)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player Damage"]
+position = Vector2(-14, -82)
+shape = SubResource("RectangleShape2D_n5yyw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(9, -24)
+scale = Vector2(0.965625, 0.996875)
+sprite_frames = SubResource("SpriteFrames_ucihq")
+animation = &"Run"
+
+[connection signal="body_entered" from="Player Detection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_entered" from="Player Damage" to="." method="_on_player_damage_body_entered"]
+[connection signal="body_exited" from="Player Damage" to="." method="_on_player_damage_body_exited"]

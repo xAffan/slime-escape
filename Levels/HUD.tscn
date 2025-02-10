@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://cp7ag2gjml66v"]
+
+[ext_resource type="Script" path="res://Levels/hud.gd" id="1_m57pf"]
+[ext_resource type="AudioStream" uid="uid://bvsbg48llpqo1" path="res://Levels/pixel-245147.mp3" id="2_byx60"]
+[ext_resource type="AudioStream" uid="uid://di6slp2tp8m2y" path="res://Player/male_hurt7-48124.mp3" id="3_gbwre"]
+[ext_resource type="AudioStream" uid="uid://djp4p2rmt2fkl" path="res://Player/level.mp3" id="4_21gby"]
+[ext_resource type="AudioStream" uid="uid://w4j5teaklr3r" path="res://Player/W.mp3" id="5_1t2m8"]
+
+[sub_resource type="GDScript" id="GDScript_tknav"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_m57pf")
+
+[node name="PlayerHPLabel" type="Label" parent="."]
+offset_left = 888.0
+offset_top = 16.0
+offset_right = 1119.0
+offset_bottom = 104.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+script = SubResource("GDScript_tknav")
+
+[node name="Player2HPLabel" type="Label" parent="."]
+offset_left = 23.0
+offset_top = 17.0
+offset_right = 254.0
+offset_bottom = 105.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+script = SubResource("GDScript_tknav")
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 520.0
+offset_top = 12.0
+offset_right = 749.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+script = SubResource("GDScript_tknav")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_byx60")
+autoplay = true
+parameters/looping = true
+
+[node name="DamageSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_gbwre")
+volume_db = 20.0
+
+[node name="NextLevel" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_21gby")
+volume_db = 5.0
+
+[node name="Congrats" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_1t2m8")
+volume_db = 24.0
